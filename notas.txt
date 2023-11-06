@@ -16,3 +16,13 @@ Pensaba hacerlo con login y JWT pero preguntar por
 eliminar y rehacer Orders 
 
 -* revisar/a mejorar: seguridad, autenticación y autorización.
+
+
+el destructuring que hice es con name img price pero quiero hacerlo con id para evitar duplicados
+    Corregir:  usar id unico de producto
+
+infoProduct verifica (fragilmente) si name price y img no estan vac[ios. 
+    Corregir: verificar con id de producto si estoy agregando un producto que tenga en mi BD
+
+cart.findOne({name})  pueden haber varios productos con el mismo nombre.
+
