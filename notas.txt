@@ -14,3 +14,5 @@ Pensaba hacerlo con login y JWT pero preguntar por
         -error si la bd falla
 
 eliminar y rehacer Orders 
+
+-* revisar/a mejorar: seguridad, autenticación y autorización.

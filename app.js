@@ -25,10 +25,9 @@ app.use(`${api}/products`, productsRouter);
 
 // Mongoose:
 mongoose.connect(process.env.CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
     dbName: 'webstoredb'
 })
+
 .then(() => {
     console.log('Conexión a la base de datos exitosa');
 })
@@ -47,3 +46,13 @@ app.get('/products-cart', controllers.getProductsCart);
 app.post('/products-cart', controllers.addProductsCart);
 app.put('/products-cart/:productId', controllers.putProduct);
 app.delete('/products-cart/:productId', controllers.deleteProduct);
+
+
+//app.get(`${api}/products`, controllers.getProducts);
+// app.get(`${api}/products-cart`, controllers.getProductsCart);
+// app.post(`${api}/products-cart`, controllers.addProductsCart);
+// app.put(`${api}/products-cart/:productId`, controllers.putProduct);
+// app.delete(`${api}/products-cart/:productId`, controllers.deleteProduct);
+
+
+
