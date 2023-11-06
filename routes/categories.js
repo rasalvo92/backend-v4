@@ -1,148 +1,83 @@
-const {Category} = require ('../models/category');
-
-const express = require ('express');
+const { Category } = require('../models/category');
+const express = require('express');
 const router = express.Router();
 
-
-//Listado Cat:
+// Listado de categorías
 router.get('/', async (req, res) => {
-    const categoryList = await Category.find();
-    if(!categoryList) {
-        res.status(500).json({success: false})
+    try {
+        const categoryList = await Category.find();
+        res.status(200).json({ success: true, data: categoryList });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
-    res.status(200).send(categoryList);
 });
 
-
-//x ID:
+// Obtener una categoría por su ID
 router.get('/:id', async (req, res) => {
-    const category = await Category.findById(req.params.id);
-    
-    if(!category) {
-        res.status(500).json({message: 'Categoria con ese ID incorrecta'})
+    try {
+        const category = await Category.findById(req.params.id);
+        if (!category) {
+            return res.status(404).json({ success: false, message: 'Categoría con ese ID no encontrada' });
+        }
+        res.status(200).json({ success: true, data: category });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
     }
-    res.status(200).send(category);
 });
 
-
-
-//Add Cat
-router.post(`/`, async (req, res) => {
-    let category = new Category({
-        name: req.body.name,
-        //color: req.body.color
-    })
-    category = await category.save();   //espero hasta que guarde la cat. y me devuelve promise con la categor[ia]
-
-    if(!category)
-    return res.status(400).send('No se puede crear la categor[ia');
-    res.send(category);
-});
-//si hay categoria la mando, si no: err.
-
-
-//refresh y params
-router.put('/:id', async (req, res) => {
-    const category = await Category.findByIdAndUpdate(
-        req.params.id,
-        {
+// Agregar una categoría
+router.post('/', async (req, res) => {
+    try {
+        const category = new Category({
             name: req.body.name,
-            icon: req.body.icon || category.icon,
-            color: req.body.color
-        },
-        {new: true}
-    )
-    if(!category)
-    return res.status(400).send('Categor[a no puede ser creada')
-    res.send(category);
+        });
+
+        const newCategory = await category.save();
+
+        if (!newCategory) {
+            return res.status(400).json({ success: false, message: 'No se puede crear la categoría' });
+        }
+
+        res.status(201).json({ success: true, data: newCategory });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
 });
 
+// Actualizar una categoría por su ID
+router.put('/:id', async (req, res) => {
+    try {
+        const category = await Category.findByIdAndUpdate(
+            req.params.id,
+            {
+                name: req.body.name,
+            },
+            { new: true }
+        );
 
-                //api/v1/id
-router.delete('/:id', (req,res) => {
-    Category.findByIdAndRemove(req.params.id)
-    .then(category => {
-        if(category) {
-            return res.status(200).json({success: true, message: 'Categor[ia eliminada.'});
-            } else {
-                return res.status(404).json({success:false, message: 'Categor[ia No Encontrada'})
-            }
-    }).catch(err=>{
-        return res.status(400).json({success: false, error: err})
-    })
+        if (!category) {
+            return res.status(404).json({ success: false, message: 'Categoría no encontrada' });
+        }
+
+        res.status(200).json({ success: true, data: category });
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
 });
 
-module.exports = router; 
+// Eliminar una categoría por su ID
+router.delete('/:id', async (req, res) => {
+    try {
+        const category = await Category.findByIdAndRemove(req.params.id);
 
+        if (category) {
+            return res.status(200).json({ success: true, message: 'Categoría eliminada' });
+        } else {
+            return res.status(404).json({ success: false, message: 'Categoría no encontrada' });
+        }
+    } catch (error) {
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
 
-
-
-
-
-
-
-
-
-
-// router.get('/', async (req, res) => {
-//     const categoryList = await Category.find();
-
-//     if(!categoryList) {
-//         res.status(500).json({success:false})
-//     }
-//     res.status(200).send(categoryList);
-// });
-
-// //Cat x id:   
-// router.get(':id', async (req, res) =>{
-//     const category = await Category.findById(req.params.id);
-
-//     if(!category){
-//         res.status(500).json({message:'Categoria con ese ID no encontrada'})
-//     }
-//     res.status(200).send(category) 
-// });
-
-// //act info 
-// router.put('/:id', async (req, res) => {
-//     const category = await Category.findByIdAndUpdate(
-//         req.params.id, {
-//             name: req.body.name,
-//         },
-//         {new:true}
-//         )
-//     if(!category)
-//     return res.status(400).send('Categor[ia imposible de crear')
-
-//     res.send(category);
-
-// });
-
-// //Agreg Cat
-// router.post('/', async (req, res) => {
-//     let category = new Category({
-//         name: req.body.name,
-//     })
-//     category = await category.save();
-
-//     if(!category)
-//     return res.status(400).send('Categor[ia imposible de crear')
-
-//     res.send(category);
-// });
-
-// // del cat *url id   api/ /deletecategoryID   si cambio el ':id' por 'catId' por ej tmb debo de los param requeridos
-// router.delete('/:id', (req, res) => {
-//     Category.findByIdAndRemove(req.params.id)
-//     .then(category => {
-//         if(category) {
-//             return res.status(200).json({success: true, message: 'Categor[ia eliminada'})
-//         } else {
-//             return res.status(404).json({success:false, message: 'Categor[ia no encontrada'})
-//         }
-//     }).catch(err =>{
-//         return res.status(400).json({success:false, error: err})
-//     })
-// });
-
-// module.exports = router;
+module.exports = router;
