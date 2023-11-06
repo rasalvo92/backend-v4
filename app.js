@@ -9,7 +9,9 @@ const controllers = require('./controllers');
 
 //.env
 require('dotenv/config');
+//dotenv.config();
 const api = process.env.API_URL;
+
 
 const productsRouter = require('./routes/products');
 
