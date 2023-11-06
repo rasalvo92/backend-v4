@@ -1,13 +1,16 @@
 A resolver: 
-
-
     productSchema
     Categor[ias]   -*
     User
 
 Pensaba hacerlo con login y JWT pero preguntar por
 "entidad que sea utilizable en una aplicación"
+*- volver a hacer las cat  
 
+(v2) Update
+    app-v2 : 
+        -limpieza codigo, mejora y correcion de routes get post put del  '/url'
+        -mongoose newUrlParser y Topology
+        -error si la bd falla
 
-*- volver a hacer las cat 
 
