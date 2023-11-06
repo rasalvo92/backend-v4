@@ -14,3 +14,6 @@ const categorySchema = mongoose.Schema({
 });
 
 exports.Category = mongoose.model('Category', categorySchema);
+
+
+//buscar .sort(category)
