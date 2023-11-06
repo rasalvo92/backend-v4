@@ -1,0 +1,13 @@
+A resolver: 
+
+
+    productSchema
+    Categor[ias]   -*
+    User
+
+Pensaba hacerlo con login y JWT pero preguntar por
+"entidad que sea utilizable en una aplicación"
+
+
+*- volver a hacer las cat 
+

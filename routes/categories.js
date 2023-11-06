@@ -4,7 +4,7 @@ const express = require ('express');
 const router = express.Router();
 
 
-//Listado:
+//Listado Cat:
 router.get('/', async (req, res) => {
     const categoryList = await Category.find();
     if(!categoryList) {
@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 });
 
 
-
+//x ID:
 router.get('/:id', async (req, res) => {
     const category = await Category.findById(req.params.id);
     
@@ -41,7 +41,7 @@ router.post(`/`, async (req, res) => {
 //si hay categoria la mando, si no: err.
 
 
-
+//refresh y params
 router.put('/:id', async (req, res) => {
     const category = await Category.findByIdAndUpdate(
         req.params.id,
