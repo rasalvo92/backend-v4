@@ -2,6 +2,14 @@ const { Category } = require('../models/category');
 const express = require('express');
 const router = express.Router();
 
+
+router.get('/', categoryController.getCategories); // categorías
+router.post('/', categoryController.createCategory); // add. categoría
+router.put('/:categoryId', categoryController.updateCategory); // refresh cat x ID
+router.delete('/:categoryId', categoryController.deleteCategory); // delete cat x ID
+
+
+
 // Listado de categorías
 router.get('/', async (req, res) => {
     try {

@@ -14,7 +14,7 @@ const api = process.env.API_URL;
 
 
 const productsRouter = require('./routes/products');
-const categoriesRouter = require('./routes/categories');
+const categoriesRouter = require('./routes/categories'); //no lo había llamado
 
 //Middleware
 app.use(cors());

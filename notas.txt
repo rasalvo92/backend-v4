@@ -27,3 +27,6 @@ infoProduct verifica (fragilmente) si name price y img no estan vac[ios.
 cart.findOne({name})  pueden haber varios productos con el mismo nombre.
 
 falta actualizar el env /v4 ya
+
+
+categoryController!!
