@@ -7,4 +7,4 @@ const cartSchema = new Schema({
     price: {type: Number, required: true}
 });
 
-module.exports = model('Cart', CartSchema);
+module.exports = model('Cart', cartSchema);
